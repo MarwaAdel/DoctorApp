@@ -2,21 +2,26 @@ package com.example.marwaadel.attendancesystem.model;
 
 import com.example.marwaadel.attendancesystem.utils.Constants;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firebase.client.ServerValue;
 
 import java.util.HashMap;
 
 /**
- * Created by Merna on 3/7/2016.
+ * Created by Marwa Adel on 3/18/2016.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Student {
+    public Student(String studentID, String studentName, String userEmail, HashMap<String, Object> timestampCreated) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        UserEmail = userEmail;
+        this.timestampCreated = timestampCreated;
+    }
 
     private String studentID;
     private String studentName;
-    private String enterLecture;
-    private String outerLecture;
-
-
+    private String UserEmail;
     private HashMap<String, Object> date;
     private HashMap<String, Object> time;
     private HashMap<String, Object> timestampLastChanged;
@@ -29,8 +34,6 @@ public class Student {
     public Student(String studentID, String studentName, String enterLecture, String outerLecture, HashMap<String, Object> timestampCreated) {
         this.studentID = studentID;
         this.studentName = studentName;
-        this.enterLecture = enterLecture;
-        this.outerLecture = outerLecture;
         this.timestampCreated = timestampCreated;
 
         HashMap<String, Object> timestampNowObject = new HashMap<String, Object>();
@@ -39,12 +42,9 @@ public class Student {
     }
 
 
-    public Student(String studentID, String studentName, String enterLecture, String outerLecture,  HashMap<String, Object> time, HashMap<String, Object> date) {
+    public Student(String studentID, String studentName, String enterLecture, String outerLecture, HashMap<String, Object> time, HashMap<String, Object> date) {
         this.studentID = studentID;
         this.studentName = studentName;
-        this.enterLecture = enterLecture;
-        this.outerLecture = outerLecture;
-
         this.time = time;
         this.date = date;
         HashMap<String, Object> timestampNowObject = new HashMap<String, Object>();
@@ -52,13 +52,6 @@ public class Student {
         this.timestampLastChanged = timestampNowObject;
     }
 
-    public String getEnterLecture() {
-        return enterLecture;
-    }
-
-    public String getOuterLecture() {
-        return outerLecture;
-    }
 
     public String getStudentID() {
         return studentID;

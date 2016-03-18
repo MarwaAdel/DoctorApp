@@ -2,129 +2,48 @@ package com.example.marwaadel.attendancesystem;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.marwaadel.attendancesystem.model.Student;
 import com.example.marwaadel.attendancesystem.utils.Constants;
 import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
 
-import java.util.HashMap;
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends AppCompatActivity {
- //  private  BeaconManager beaconManager;
-   // TextView mTextViewListName;
-    Button Btn;
-  //  ListView l;
+    ListView list;
+    StudentAdapter mStudentListAdapter;
 
-   private StudentAdapter mStudentListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        mTextViewListName=(TextView)findViewById(R.id.textr);
-      //  l=(ListView)findViewById(R.id.list_view_student_lists);
+        list = (ListView) findViewById(R.id.list_view_student_lists);
+        Firebase refListName = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
+        mStudentListAdapter = new StudentAdapter(this, Student.class,
+                R.layout.list_item, refListName);
 
+        list.setAdapter(mStudentListAdapter);
 
-      /*  beaconManager = new BeaconManager(getApplicationContext());
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onServiceReady() {
-                beaconManager.startMonitoring(new Region
-                        (
-                                "monitored region",
-                                UUID.fromString("77b3670e-454b-434d-8445-787cc0e1ffb8"),
-                                19755, 3891));
-            }
-        });*/
-        //beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(getApplicationContext(), detailday.class));
 
-           // @Override
-           // public void onEnteredRegion(Region region, List<Beacon> list) {
-              //  Toast.makeText(getApplicationContext(), "Enter", Toast.LENGTH_LONG).show();
-                // Get the reference to the root node in Firebase
-
-                Firebase listsRef = new Firebase(Constants.FIREBASE_URL).child("StudentList");
-       //listsRef.orderByChild("StudentList");
-                Firebase newListRef = listsRef.push();
-
-                final String listId = newListRef.getKey();
-
-                HashMap<String, Object> timestampCreated = new HashMap<>();
-                timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-                Student NewStudent = new Student("123", "merna", "ture", "false", timestampCreated);
-                newListRef.setValue(NewStudent);
-      //  newListRef.orderByChild(NewStudent);
-//                Firebase ref = new Firebase(Constants.FIREBASE_URL);
-//                // Get the string that the user entered into the EditText
-//                // String userEnteredName = mEditTextListName.getText().toString();
-//                // Go to the "listName" child node of the root node.
-//                // This will create the node for you if it doesn't already exist.
-//                // Then using the setValue menu it will set value the node to userEnteredName.
-//                ref.child("listName").setValue("teesst1");
-
-            //}
-
-         /*   @Override
-            public void onExitedRegion(Region region) {
-                Toast.makeText(getApplicationContext(), "Exit", Toast.LENGTH_LONG).show();
-            }
-        });*/
-
-
-        Btn=(Button) findViewById(R.id.btn);
-        Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),studentList.class);
-                startActivity(intent);
             }
         });
 
 
-
-        //Firebase refListName = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-
-
-        /**
-         * Add ValueEventListeners to Firebase references
-         * to control get data and control behavior and visibility of elements
-         */
-//        refListName.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                // You can get the text using getValue. Since the DataSnapshot is of the exact
-//                // data you asked for (the node listName), when you use getValue you know it
-//                // will return a String.
-//                String listName = (String) dataSnapshot.getValue();
-//                // Now take the TextView for the list name
-//                // and set it's value to listName.
-//                mTextViewListName.setText(listName);
-//            }
-
-
-//            @Override
-//            public void onCancelled(FirebaseError firebaseError) {
-//
-//
-//            }
-//        });
-//        mStudentListAdapter = new StudentAdapter(MainActivity.this, Student.class,
-//         R.layout.list_item, refListName);
-//
-//        l.setAdapter(mStudentListAdapter);
-
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
-        mStudentListAdapter.cleanup();
+//        mStudentListAdapter.cleanup();
     }
 
     @Override

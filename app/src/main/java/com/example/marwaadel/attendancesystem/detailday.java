@@ -10,9 +10,6 @@ import android.widget.ListView;
 import com.example.marwaadel.attendancesystem.model.Student;
 import com.example.marwaadel.attendancesystem.utils.Constants;
 import com.firebase.client.Firebase;
-import com.firebase.client.ServerValue;
-
-import java.util.HashMap;
 
 public class detailday extends AppCompatActivity {
     ListView list2;
@@ -24,41 +21,17 @@ public class detailday extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailday);
         list2 = (ListView) findViewById(R.id.list_view_student_lists2);
-
         Firebase refListName = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
-        HashMap<String, Object> timestampCreated = new HashMap<>();
-//        refListName.push().setValue(timestampCreated);/
-        timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
 
+        //HashMap<String, Object> timestampCreated = new HashMap<>();
+        //timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
+
+        //Query query = refListName.orderByChild("TimeStamp").equalTo(timestampCreated);
         Log.e("dateString", String.valueOf(refListName));
-
-     //   Query query = refListName.orderByChild("timestamp").equalTo(String.valueOf(timestampCreated));
 
         mStudentscheduleAdapter = new StudentscheduleAdapter(detailday.this, Student.class,
                 R.layout.list_item2, refListName);
         list2.setAdapter(mStudentscheduleAdapter);
-
-//        HashMap<String, Object> timestampCreated = new HashMap<>();
-//        timestampCreated.put(Constants.FIREBASE_PROPERTY_TIMESTAMP, ServerValue.TIMESTAMP);
-//        Query query = refListName.orderByChild("timestamp").equalTo(String.valueOf(timestampCreated));
-//        query.addValueEventListener(new ValueEventListener() {
-//     @Override
-//    public void onDataChange(DataSnapshot dataSnapshot) {
-//        for (DataSnapshot movieSnapshot : dataSnapshot.getChildren()) {
-//
-//            if (movieSnapshot.getLead().equals('Jack Nicholson')) {
-//                console.log(movieSnapshot.getKey());
-//            }
-//        }
-//    }
-//
-//    @Override
-//    public void onCancelled(FirebaseError firebaseError) {
-//
-//    }
-//});
-//
-        //  refListName.setValue(ServerValue.TIMESTAMP);
 
 
     }

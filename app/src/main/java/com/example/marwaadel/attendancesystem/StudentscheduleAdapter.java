@@ -21,9 +21,9 @@ public class StudentscheduleAdapter extends FirebaseListAdapter<Student> {
 
     @Override
     protected void populateView(View v, Student model) {
-        TextView studentId=(TextView)v.findViewById(R.id.studentId);
-        TextView studentName=(TextView)v.findViewById(R.id.studentName);
-        TextView time=(TextView)v.findViewById(R.id.time);
+        TextView studentId = (TextView) v.findViewById(R.id.studentId);
+        TextView studentName = (TextView) v.findViewById(R.id.studentName);
+        TextView time = (TextView) v.findViewById(R.id.time);
 
         studentId.setText(model.getStudentID());
         studentName.setText(model.getStudentName());
@@ -31,7 +31,7 @@ public class StudentscheduleAdapter extends FirebaseListAdapter<Student> {
             time.setText(
                     Utils.SIMPLE_DATE_FORMAT.format(new Date(model.getTimestampLastChangedLong())));
 
-        }else {
+        } else {
             time.setText("");
         }
     }

@@ -11,10 +11,9 @@ public class Utils {
     /**
      * Format the date with SimpleDateFormat
      */
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("dd MMMM yyyy ");
+    public static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat("HH:mm:ss");
     private Context mContext = null;
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
 
     /**
@@ -22,6 +21,10 @@ public class Utils {
      */
     public Utils(Context con) {
         mContext = con;
+    }
+
+    public static String encodeEmail(String userEmail) {
+        return userEmail.replace(".", ",");
     }
 
 }

@@ -5,17 +5,19 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.marwaadel.attendancesystem.model.Student;
+import com.example.marwaadel.attendancesystem.utils.Constants;
 import com.example.marwaadel.attendancesystem.utils.Utils;
+import com.firebase.client.Firebase;
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseListAdapter;
 
 import java.util.Date;
 
 /**
- *
- * Created by Merna on 3/7/2016.
+ * Created by Marwa Adel on 3/16/2016.
  */
 public class StudentAdapter extends FirebaseListAdapter<Student> {
+    Firebase ref;
 
     public StudentAdapter(Activity activity, Class<Student> modelClass, int modelLayout, Query ref) {
         super(activity, modelClass, modelLayout, ref);
@@ -26,21 +28,22 @@ public class StudentAdapter extends FirebaseListAdapter<Student> {
 
         TextView date = (TextView) v.findViewById(R.id.date);
         TextView time = (TextView) v.findViewById(R.id.time);
-        if (model.getDate() != null) {
+
+
+        if (model.getTimestampLastChanged() != null) {
             date.setText(
-                    Utils.DATE_FORMAT.format(new Date(model.getDateLong())));
+                    Utils.SIMPLE_DATE_FORMAT.format(new Date(model.getTimestampLastChangedLong())));
+            time.setText(
+                    Utils.SIMPLE_TIME_FORMAT.format(new Date(model.getTimestampLastChangedLong())));
+            ref = new Firebase(Constants.FIREBASE_URL_ACTIVE_LIST);
 
-
+            //Query query = refListName.orderByChild("timestamp").equalTo(String.valueOf(timestampCreated));
         } else {
             date.setText("");
-        }
-        if (model.getTime() != null) {
-            time.setText(
-                    Utils.TIME_FORMAT.format(new Date(model.getTimeLong())));
-
-
-        } else {
+            //Query query;
+            // query = ref.orderByChild("timestamp").equalTo("date.setText(\"\")");
             time.setText("");
         }
     }
+
 }

@@ -22,19 +22,23 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".detailday"
+            android:label="@string/title_activity_detailday" >
+        </activity>
+        <activity
+            android:name=".login.CreateAccountActivity"
+            android:label="@string/title_activity_create_account" >
+        </activity>
+        <activity
+            android:name=".login.LoginActivity"
+            android:label="DoctorApp"   android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".studentList"
-            android:label="@string/title_activity_student_list" >
-        </activity>
-        <activity
-            android:name=".detailday"
-            android:label="@string/title_activity_detailday" >
         </activity>
     </application>
 
